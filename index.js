@@ -8,7 +8,9 @@ const client = new language.LanguageServiceClient();
 exports.helloworld = (req, res) => {
 	res.set('Access-Control-Allow-Origin', "*");
   	res.set('Access-Control-Allow-Methods', 'GET, POST');
-  	let message = decodeURI(req.query.message);
+  	if(req.query.message) {
+  		message = req.query.message
+  	} else if (req.)
   
   	const document = {
 	    content: message,
@@ -32,13 +34,11 @@ exports.helloworld = (req, res) => {
 					}
 				});
 				if(problemSentences.length > 0) {
-					console.log(problemSentences);
 					res.status(200).send({
 						pass: false,
 						problemIndices: problemSentences
 					})
 				} else {
-					console.log(problemSentences);
 					res.status(200).send({
 						pass: true
 					})
